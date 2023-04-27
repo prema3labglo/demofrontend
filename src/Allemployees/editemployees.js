@@ -8,8 +8,6 @@ export default function EditEmployees({ details, setDetails,setOpen,open,setData
   const handleChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
-
-
   const handleEdit=()=>{
     console.log("edit--")
     fetch(`${HTTP}/useredit/${details?._id}`,{
@@ -22,11 +20,12 @@ export default function EditEmployees({ details, setDetails,setOpen,open,setData
     .then((response)=>{
       if(response.status===201){
         setMessage({success:"updated successfully"})
-        setTimeout(()=>{
-          setOpen(!open)
-        },[3000])
+        setOpen(!open)
         setDataUpdate(!dataUpdate)
       }
+      setTimeout(()=>{
+        setMessage({success:"",error:""})
+      },[3000])
      
     })
    

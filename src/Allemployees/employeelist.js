@@ -45,10 +45,15 @@ const Employeelist = () => {
   };
 
   const handledelete = (data) => {
-    console.log("delete", data);
     fetch(`${HTTP}/userdelete/${data._id}`, {
       method: "DELETE",
-    });
+    })
+    .then((response)=>{
+      setMessage({success:'deleted successfully',error:""})
+    })
+    setTimeout(()=>{
+      setMessage({success:"",error:""})
+    },[3000])
     setDataUpdate(!dataUpdate);
   };
 

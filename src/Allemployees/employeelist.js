@@ -50,11 +50,12 @@ const Employeelist = () => {
     })
     .then((response)=>{
       setMessage({success:'deleted successfully',error:""})
+      setDataUpdate(!dataUpdate);
     })
     setTimeout(()=>{
       setMessage({success:"",error:""})
     },[3000])
-    setDataUpdate(!dataUpdate);
+   
   };
 
   const handleAddusermodal = () => {

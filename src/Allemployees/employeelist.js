@@ -113,31 +113,33 @@ const Employeelist = () => {
       </Modal>
       <br />
       <h3>{userdata.isadmin == true && "Admin page"}</h3>
+      <div style={{display:"flex"}}>
       {userdata.isadmin == true && (
         <Button
           variant="contained"
           color="secondary"
           onClick={handleAddusermodal}
-        
+          style={{height:"40px"}}
         >
           Add user
         </Button>
       )}
-      &nbsp;
+      &nbsp; &nbsp; &nbsp;
       <br/> <br/>
-      <Button variant="contained" color="success" onClick={Logout}>Logout</Button>
+      <Button variant="contained" color="success" onClick={Logout} style={{height:"40px"}}>Logout</Button>
       <br /> <br /> <br />
+      </div>
       <TableContainer>
         <Table aria-label="simple table" border={2}>
-          <TableHead style={{ color: "black" }}>
+          <TableHead style={{ background:"black" }}>
             <TableRow>
-              <TableCell>username</TableCell>
-              <TableCell>DOB</TableCell>
-              <TableCell>qualification</TableCell>
-              <TableCell>place</TableCell>
+              <TableCell style={{ color:"white" }}>username</TableCell>
+              <TableCell style={{ color:"white" }}>DOB</TableCell>
+              <TableCell style={{ color:"white" }}>qualification</TableCell>
+              <TableCell style={{ color:"white" }}>place</TableCell>
               {userdata.isadmin == true && (
                 <>
-                  <TableCell allign="right">Admin Action</TableCell>
+                  <TableCell allign="right" style={{ color:"white" }}>Admin Action</TableCell>
                  
                 </>
               )}

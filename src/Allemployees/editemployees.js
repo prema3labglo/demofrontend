@@ -1,8 +1,9 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
+import { HTTP } from "../baseurl";
 
-export default function EditEmployees({ details, setDetails,setOpen,open,setDataUpdate,dataUpdate }) {
-  const [message,setMessage]=useState({success:""})
+export default function EditEmployees({ details, setDetails,setOpen,open,setDataUpdate,dataUpdate,message,setMessage }) {
+ 
 
   const handleChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
@@ -11,7 +12,7 @@ export default function EditEmployees({ details, setDetails,setOpen,open,setData
 
   const handleEdit=()=>{
     console.log("edit--")
-    fetch(`http://localhost:4000/useredit/${details?._id}`,{
+    fetch(`${HTTP}/useredit/${details?._id}`,{
         method:"PUT",
         body: JSON.stringify(details),
         headers: {
@@ -70,7 +71,6 @@ export default function EditEmployees({ details, setDetails,setOpen,open,setData
       <br/>
       <br/>
       <Button variant="contained" onClick={handleEdit}>update</Button>
-      <p style={{color:"green"}}>{message?.success}</p>
       <br/>
       <br/>
       

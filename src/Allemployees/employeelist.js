@@ -6,13 +6,15 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Box, Button, Card, Modal, Typography } from "@mui/material";
+import { Box, Button, Card, Modal } from "@mui/material";
 import EditEmployees from "./editemployees";
 import Register from "../register";
 import { useNavigate } from "react-router-dom";
+import { HTTP } from "../baseurl";
 
 const Employeelist = () => {
   const navigate=useNavigate()
+  const [message,setMessage]=useState({success:"",error:""})
   const [employeeData, setEmployeeData] = useState([]);
   const [details, setDetails] = useState({});
   const [open, setOpen] = useState(false);
@@ -44,7 +46,7 @@ const Employeelist = () => {
 
   const handledelete = (data) => {
     console.log("delete", data);
-    fetch(`http://localhost:4000/userdelete/${data._id}`, {
+    fetch(`${HTTP}/userdelete/${data._id}`, {
       method: "DELETE",
     });
     setDataUpdate(!dataUpdate);
@@ -52,6 +54,7 @@ const Employeelist = () => {
 
   const handleAddusermodal = () => {
     setAddusermodel(true);
+    setMessage({success:"",error:""})
   };
 
   const Logout=()=>{
@@ -59,7 +62,7 @@ const Employeelist = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:4000/users", {
+    fetch(`${HTTP}/users`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -71,6 +74,8 @@ const Employeelist = () => {
   }, [dataUpdate]);
   return (
     <>
+     <h5 style={{color:"green"}}>{message?.success}</h5>
+        <h5 style={{color:"red"}}>{message?.error}</h5>
       <Modal
         open={addusermodal}
         onClose={handleClose}
@@ -93,6 +98,8 @@ const Employeelist = () => {
                 setAddusermodel={setAddusermodel}
                 setDataUpdate={setDataUpdate}
                 dataUpdate={dataUpdate}
+                setMessage={setMessage}
+                message={message}
               />
             </Card>
           </Box>
@@ -105,14 +112,14 @@ const Employeelist = () => {
           variant="contained"
           color="secondary"
           onClick={handleAddusermodal}
-          style={{marginLeft:"1550px"}}
+        
         >
           Add user
         </Button>
       )}
       &nbsp;
       <br/> <br/>
-      <Button style={{marginLeft:"1550px"}} variant="contained" color="success" onClick={Logout}>Logout</Button>
+      <Button variant="contained" color="success" onClick={Logout}>Logout</Button>
       <br /> <br /> <br />
       <TableContainer>
         <Table aria-label="simple table" border={2}>
@@ -189,6 +196,9 @@ const Employeelist = () => {
                 setDataUpdate={setDataUpdate}
                 open={open}
                 dataUpdate={dataUpdate}
+                setMessage={setMessage}
+                message={message}
+              
               />
             </Card>
           </Box>

@@ -1,10 +1,11 @@
 import { Button, Card, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { HTTP } from "./baseurl";
 
-const Register=({setAddusermodel,setDataUpdate,dataUpdate})=>{
+const Register=({setAddusermodel,setDataUpdate,dataUpdate,setMessage,message})=>{
+  console.log("register",message)
     const fetching=useNavigate()
-    const[message,setMessage]=useState({success:"",error:""})
     const [adduser,setAdduser]=useState({
         username:"",
         password:"",
@@ -22,7 +23,8 @@ const Register=({setAddusermodel,setDataUpdate,dataUpdate})=>{
     }
 
     const handleSubmit=()=>{
-        fetch("http://localhost:4000/register", {
+     
+        fetch(`${HTTP}/register`, {
             method: "POST",
             body: JSON.stringify(adduser),
             headers: {
@@ -33,21 +35,23 @@ const Register=({setAddusermodel,setDataUpdate,dataUpdate})=>{
             if(response.status===200){
               setMessage({success:"added successfully",error:""})
               setDataUpdate(!dataUpdate)
+              setAddusermodel(false)
               setTimeout(()=>{
-                setAddusermodel(false)
-                setMessage()
-               },3000)
+                setMessage({success:"",error:""})
+              
+               },4000)
 
             }
             else if(response.status===400){
               setMessage({success:"", error:"can't create user"})
+              setAddusermodel(false)
             }
           })
           .catch((error)=>setMessage(error))
         
     }
 
-   
+  
 
     return(
         <>
@@ -69,8 +73,7 @@ const Register=({setAddusermodel,setDataUpdate,dataUpdate})=>{
         <Button type="submit" variant="contained" onClick={handleSubmit}>submit</Button>
        &nbsp; &nbsp;
         <Button onClick={handleClick} variant="contained">All employee</Button>
-        <p style={{color:"green"}}>{message?.success}</p>
-        <p style={{color:"red"}}>{message?.error}</p>
+       
         </Card>
         </center>
         </>

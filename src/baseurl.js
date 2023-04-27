@@ -111,7 +111,7 @@ let baseHost = baseValues.baseHost[mode];
 
 // const showNewPricingForProfilesFromDate = new Date("2020-11-19T00:00:00");
 
-const HTTP = "https://demo-project-orpin-one.vercel.app/"
+const HTTP = "https://demo-project-orpin-one.vercel.app"
 
   // timeout: 600000
 
